@@ -3,26 +3,26 @@ import { Message } from "../model/message.model"
 import { User } from "../model/user.model"
 
 interface PropType {
-  onSubmit: (event: SyntheticEvent) => void,
-  onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void,
-  messages: Message[];
+    onSubmit: (event: SyntheticEvent) => void,
+    onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void,
+    messages: Message[];
 }
 
 const Chat = ({ onSubmit, onChangeInput, messages }: PropType) => {
 
+    const messageElement: JSX.Element[] = messages.map((item: any, index) => {
+        return (
+            <div key={item.id} className='flex w-fit flex-col h-10 box-content py-5 rounded-md  bg-indigo-300 my-5'>
+                <span>{(item.user as User).name}: </span>
+                <div className='px-5'>{item.message_content}</div>
+            </div>
+        )
+    })
+
     return (
         <div className='w-8/12 m-auto' >
             <div className='w-full h-96 border-2 border-red-300 overflow-y-auto ' >
-                {
-                    messages.map((item: any, index) => {
-                        return (
-                            <div key={item.id} className='flex w-fit flex-col h-10 box-content py-5 rounded-md  bg-indigo-300 my-5'>
-                                <span>{(item.user as User ).name}: </span>
-                                <div className='px-5'>{item.message_content}</div>
-                            </div>
-                        )
-                    })
-                }
+                {messageElement}
             </div>
             <form className="mt-8 flex justify-center items-center" onSubmit={onSubmit} >
                 <label htmlFor="name" className="text-xl mr-5">Type your message: </label>
