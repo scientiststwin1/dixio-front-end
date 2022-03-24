@@ -1,3 +1,5 @@
 import io from 'socket.io-client';
 
-export const socket = io('http://localhost:8000/chat')
+const wsUrl = process.env.REACT_APP_WS_URL as string;
+
+export const socket = io(wsUrl)
